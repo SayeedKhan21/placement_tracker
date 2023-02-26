@@ -19,6 +19,8 @@ from base import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ptracker/', include('base.urls')),
+    path('ptracker/', include('app.urls')),
+    path('ptracker/accounts/' , include('base.urls')) ,
+    path('ptracker/posts/' , include('post.urls')) ,
 
 ]

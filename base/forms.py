@@ -2,55 +2,10 @@ from django.forms import ModelForm
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
-from .helpers import current_year ,years 
-from django.contrib import messages
-# from django.core.exceptions import ValidationError
-DEPT_CHOICES = [
-    ('CS', 'Computer Science'),
-    ('IT', 'Information Technology'),
-    ('ENTC', 'Electronics and Telecommunication'),
-]
-
-def show_companies() : 
-    company_list = Company.objects.values('name')
-    name_list = [] 
-    for nm in company_list : 
-        name_list.append(nm['name']) 
-    return tuple((nm ,nm) for nm in name_list)
-
-COMPANY_CHOICES = show_companies()
-
-def show_domain() : 
-    domain_list = Domain.objects.values('name')
-    name_list = [] 
-    for nm in domain_list : 
-        name_list.append(nm['name']) 
-    return tuple((nm ,nm) for nm in name_list)
-
-DOMAIN_CHOICES = show_domain()
-
-
-class PostForm(ModelForm):
-    company = forms.ModelChoiceField(queryset= Company.objects.all() )
-    intern = forms.BooleanField(initial=False ,required=False)
-    ctc = forms.IntegerField()
-
-
-    class Meta:
-        model = Post
-        fields = ['title', 'content']
-
-    def __init__(self, *args, **kwargs):
-        super(PostForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
-
-    def save(self  , offer_id ,**kwargs) : 
-        self.clean()
-        self.instance.offer_id = offer_id
-        return super(PostForm ,self).save(**kwargs)
-
+from app.models import (
+    Student ,
+)
+from django.contrib.auth.models import User
 
 
 class RegisterForm(ModelForm) : 
@@ -62,7 +17,7 @@ class RegisterForm(ModelForm) :
     )
     class Meta:
         model = Student
-        fields = ['name', 'year_of_passing', 'dept_id']
+        fields = ['name', 'year_of_passing', 'dept']
     
     def clean(self):
         super(RegisterForm ,self).clean()
@@ -105,12 +60,4 @@ class LoginForm(ModelForm) :
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
-class PostFilterForm(forms.Form) : 
-    company = forms.ModelChoiceField(queryset=Company.objects.all())
-    dream = forms.ChoiceField(choices = (('YES' ,'YES') ,('NO' ,'NO')) )
-    domain = forms.ModelChoiceField(queryset= Domain.objects.all() )
-    def __init__(self, *args, **kwargs):
-        super(PostFilterForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
-    
+

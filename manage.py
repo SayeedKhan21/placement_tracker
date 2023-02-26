@@ -3,9 +3,9 @@
 
 import os
 import sys
-import environ
+import dotenv
 def main():
-    environ.Env.read_env()
+    dotenv.read_dotenv()
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'placement_tracker.settings')
     try:

@@ -1,0 +1,67 @@
+{% extends 'app/main.html' %}
+{% block content %}
+<h1>All posts</h1>
+  <form method = 'GET' >
+    <h3>Company</h3>
+    <select id="company-names"  name ="company" class="form-control" >
+      <option value="All">All</option>
+    </select>
+    <h3>Domain</h3>
+    <select id="domain-names"  name ="domain" class="form-control" >
+      <option value="All">All</option>
+    </select>
+    <br>
+    <div class="form-row ">        
+      <button type="submit" class="btn btn-primary mb-2 mx-4">Search</button>
+    </div>
+  </form>
+
+
+{% for p in posts %}
+<div class="container m-auto">
+  <article class="media content-section ">
+    <div class="media-body">
+      <div class="article-metadata">
+        By<a class="mr-2" href="{% url 'app:profile' p.offer.student.id %}"> {{p.offer.student}}</a>
+        <small class="text-muted">{{p.created_at | date:"F d, Y" }}</small>
+      </div>
+      <h2><a class="article-title" href="{% url 'post:post-detail' p.id%}">{{ p.title }}</a></h2>
+      <p class="article-content">{{ p.content }}</p>
+    </div>
+  </article>
+</div>
+{% endfor %}
+
+
+<script>
+
+  // AJAX REQUEST TO FETCH COMPANY ,DOMAIN LIST
+
+  $(document).ready(()=>{
+    $.ajax({
+      url : '{% url 'app:form-list' %}' ,
+      type : 'get' ,
+      success : function(response){
+        let ctag = document.getElementById('company-names')
+        let dtag = document.getElementById('domain-names')
+        
+  
+        for (const key in response){
+            response[key].forEach((name) => {
+                let newOption = document.createElement('option')
+                newOption.value = name
+                newOption.text = name
+                if (key == 'companies') { 
+                  ctag.append(newOption) 
+                }
+                else {
+                  dtag.append(newOption)
+                }
+            })          
+          }
+        }
+      })
+    })
+</script>
+
+{% endblock %}

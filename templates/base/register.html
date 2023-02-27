@@ -1,4 +1,4 @@
-{% extends 'base/main.html' %}
+{% extends 'app/main.html' %}
 {% load static %}
 {% block content %}
 
@@ -73,7 +73,7 @@
 
         <!-- Register buttons -->
         <div class="text-center">
-            <p>Already a member? <a href="{% url 'login' %}">Login</a></p>
+            <p>Already a member? <a href="{% url 'base:login' %}">Login</a></p>
         </div>
         {% csrf_token %}
 

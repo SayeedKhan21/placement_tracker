@@ -7,7 +7,7 @@ from django.views import View
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login ,logout,authenticate
-
+from django.contrib.auth import get_user_model
 
 class LoginView(View):
 
@@ -16,21 +16,21 @@ class LoginView(View):
         if form.is_valid() : 
 
             data = {
-                'name' : form.cleaned_data['name'] ,
+                'username' : form.cleaned_data['name'] ,
                 'password' : form.cleaned_data['password']
             }
 
             try : 
-                stu  = Student.objects.filter(**data)
-            except Student.DoesNotExist : 
+                user  = get_user_model().objects.filter(**data)
+            except User.DoesNotExist : 
                 messages.warning(request , 'User Does Not Exist')
                 return redirect('login')
             
-            stu = authenticate(request , username = data['name'] ,password = data['password'])
-            if stu is not None : 
-                login(request , stu)
+            user = authenticate(request , username = data['username'] ,password = data['password'])
+            if user is not None : 
+                login(request , user)
                 messages.success(request, 'Logged In Sucessfully')
-                return redirect('home')       
+                return redirect('app:home')       
         
         messages.warning(request , 'Invalid credentials')
         context = {
@@ -39,7 +39,6 @@ class LoginView(View):
         return render(request , 'base/login.html' ,context)
 
     def get(self ,request):
-        print("here")
         form = LoginForm()
         return render(request , 'base/login.html' , {'form' : form})
 
@@ -58,7 +57,7 @@ class  RegisterView(View) :
         context = { 
             'form' : form
         }
-        return render(request, 'base/register.html') 
+        return render(request, 'base/register.html' ,context) 
 
     def post(self,request) : 
         form = RegisterForm(request.POST)

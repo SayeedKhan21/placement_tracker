@@ -27,7 +27,7 @@ class RegisterForm(ModelForm) :
         if password != confirm_password : 
             print("Passwords do not match")
             raise forms.ValidationError(
-                "passwords do not match"
+                "Passwords do not match"
             )
         return self.cleaned_data
 
@@ -55,6 +55,8 @@ class LoginForm(ModelForm) :
     class Meta  : 
         model = Student
         fields =['name']
+
+
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():

@@ -1,4 +1,4 @@
-{% extends 'base/main.html' %}
+{% extends 'app/main.html' %}
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="container" style="width: 25rem" class="align-items-center">
@@ -38,7 +38,7 @@
 
         <!-- Register buttons -->
         <div class="text-center">
-            <p>Not a member? <a href="{% url 'register' %}">Register</a></p>
+            <p>Not a member? <a href="{% url 'base:register' %}">Register</a></p>
         </div>
         {% csrf_token %}
 

@@ -27,16 +27,12 @@
               <a class="nav-link" href={% url 'app:home' %}>Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              {% comment %} <a class="nav-link" href="{% url 'post:all_posts'%}">Posts</a> {% endcomment %}
+              <a class="nav-link" href="{% url 'post:all-posts'%}">Posts</a>
             </li>
             {% if request.user.is_authenticated %}
               {% if not request.user.is_superuser   %}
               <li class="nav-item">
-                {% comment %} <a class="nav-link" href="{% url 'profile' request.user.student.id %}">{{request.user}}</a> {% endcomment %}
-              </li>
-              {% else %}
-              <li class="nav-item">
-                {% comment %} <a class="nav-link" href="{% url 'about' %}">{{request.user}}</a>/ {% endcomment %}
+                <a class="nav-link" href="{% url 'app:profile' request.user.student.id %}">{{request.user}}</a>
               </li>
               {% endif %}
             {% endif %}

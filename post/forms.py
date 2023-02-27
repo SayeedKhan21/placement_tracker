@@ -28,12 +28,4 @@ class PostForm(ModelForm):
         self.instance.offer_id = offer_id
         return super(PostForm ,self).save(**kwargs)
     
-class PostFilterForm(forms.Form) : 
-    company = forms.ModelChoiceField(queryset=Company.objects.all())
-    dream = forms.ChoiceField(choices = (('YES' ,'YES') ,('NO' ,'NO')) )
-    domain = forms.ModelChoiceField(queryset= Domain.objects.all() )
-    def __init__(self, *args, **kwargs):
-        super(PostFilterForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
-    
+

@@ -29,12 +29,16 @@ class HomeView(View):
     
 
 
-class ProfileView(LoginRequiredMixin ,DetailView) : 
+class ProfileView(LoginRequiredMixin ,View) : 
     
     def get(self,req , student_id):
         student = Student.objects.get(id = student_id)
         context = {}
+        posts = Post.objects.filter(offer__student__user = self.request.user)
+        context['posts'] = posts
+        context['student'] = student
         return render(req , 'app/profile.html' ,context)
+    
 
 
 def formListValues(request) : 

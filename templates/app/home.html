@@ -6,7 +6,7 @@
 <ul class="messages">
     {% for message in messages %}
     <div class="alert alert-{% if message.tags %} {{message.tags}} {% endif %} alert-dismissible fade show" role="alert">
-        <strong><a href="{% url 'login' %}" style="color: rgb(158, 117, 56);" >{{message}}</a><strong> 
+        <strong><a href="{% url 'base:login' %}" style="color: rgb(158, 117, 56);" >{{message}}</a><strong> 
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

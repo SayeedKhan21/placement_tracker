@@ -35,6 +35,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'base',
     'app' ,
+    'api', 
+    'rest_framework',
     'post',
     'bootstrap4' ,
     'django_extensions',
@@ -125,6 +127,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'public/static/'
 ]
+
+MEDIA_ROOT = BASE_DIR / 'public/static/images/'
 MEDIA_URL = '/images/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -133,3 +137,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 LOGIN_URL = 'base:login'
+
+

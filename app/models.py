@@ -2,7 +2,7 @@ from django.db import models
 from base.models import (
     BaseModel ,
 )
-
+from datetime import datetime
 from .helpers import (
     years ,
     current_year ,
@@ -28,6 +28,9 @@ class Department(BaseModel) :
 class Company(BaseModel) :
     name = models.CharField(max_length=100)
     dream = models.BooleanField(default=False)
+    description = models.TextField(blank=True)
+    link = models.URLField(blank=True)
+    logo  = models.ImageField(default='logo.png' ,upload_to='company_images')
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
 
     
@@ -47,6 +50,16 @@ class Student(BaseModel) :
     
     def __str__(self) :
         return self.name
+    
+
+class StudentProfile(BaseModel):
+    
+    student = models.OneToOneField(Student, on_delete=models.CASCADE ,related_name='profile')
+    avatar = models.ImageField(default='profile_image.png', upload_to='profile_images')
+    bio = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.student.name
 
 
 class Placement_Detail(BaseModel) :

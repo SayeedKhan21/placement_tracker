@@ -11,3 +11,5 @@ urlpatterns = [
     path('profile/<uuid:student_id>' , ProfileView.as_view(), name ='profile'),
     path('get_form_values' , formListValues ,name ='form-list' )
 ]
+
+

@@ -5,6 +5,7 @@ from .models import (
     Domain ,
     Department ,
     Placement_Detail ,
+    StudentProfile 
 )
 # Register your models here.
 
@@ -12,6 +13,8 @@ from .models import (
 class StudentAdmin(admin.ModelAdmin) : 
     list_display = ['id' ,'name' , 'dept' , 'year_of_passing' ]
     readonly_fields = ['id']
+
+admin.site.register(StudentProfile)
 
 
     
